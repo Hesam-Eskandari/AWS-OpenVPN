@@ -13,7 +13,7 @@ This tutorial is under construction
   </p>
   
 <p>
-  A personal AWS account lets you benefit from a few free services under certain condisions. Look at the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc) website for more information regarding their offers. 
+  A personal AWS account lets you benefit from a few free services under certain condisions. Look at the <a href="https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc">AWS Free Tier</a> website for more information regarding their offers. 
 </p>
 <h2>Launch A New Instance</h2>
 <p>
@@ -36,3 +36,79 @@ This tutorial is under construction
   We recommend you to set the server IP static. It would let you to connect to the instance with one public IP anytime. Go back to EC2 dashboard and click on the Elastic IP, choose the instance, click on the Associate Elastic IP in the Action, chose your instance and finish it. 
 </p>
 <h2> Connect Via SSH</h2>
+You could connect to your launched instance from Ubuntu terminal with the .pem key file you downloaded or with Putty using a .ppk key file. To convert .pem to .ppk in Ubuntu use thie commend in therminal:
+</p>
+
+```
+puttygen keyfile.pem -o keyfile.ppk
+```
+
+And in windows download the puttygen and convert the file.
+
+<p> 
+  I recommend to connect to the server in terminal if you are using Ubuntu and use putty if you are a Windows user. Go to your EC2 dashboard and click on Running Instances. You would find the instruction to connect to you instance via SSH by clicking on "Connect" button.
+</p>
+
+<h2>Install OpenVPN And Create Clients</h2>
+You need to write down the public IP address of you instance before installing and using openvpn. It is the elastic IP you set.
+<p>
+  Connect to the instance and write the following command to install OpenVPN:
+ </p>
+ 
+ ```
+ $ wget https://git.io/vpn -O openvpn-install.sh
+ ```
+ 
+ <p>Type the following command to set openvpn settings and create your first client
+</p>
+
+```
+$ sudo bash openvpn-install.sh
+```
+<p> It will ask a few questions the first time you run this command.<br>
+  <ul>
+    <li>Use the public IP address of the instance</li>
+    <li>Use the TCP costom port you made in security group (1194)</li>
+    <li>Use Google as DNS</li>
+  </ul>
+  Then it will ask for the first client name and creates a ".ovpn" file for it in a directory and gives you the path to the directory. The next time you run the command above it would ask you to create or manage your clients. 
+</p>
+ 
+<h2>Download The ".ovpn" Files</h2>
+ Use the commend bellow in Ubuntu terminal in your computer (not the server) to download the .ovpn client files you made.
+ 
+ ```
+ sudo scp -i /path1/keyFile.pem ubuntu@<PublicDNS>:/path2/clientFile.ovpn /path3
+ ```
+ 
+ <p> in the command above:
+    <ul>
+      <li>Path1 is the path to the keyFile.pem in your computer</li>
+      <li>Path2 is the path to .ovpn file inthe server instance</li>
+      <li>Path3 is the path in your computer that the .ovpn file would be downloaded</li>
+    </ul>
+ </p>
+ 
+ <h2>Connect to OpenVPN</h2>
+ <p>Now that you have the ovpn file you can connect to the server. Download the <a href="https://openvpn.net/community-downloads/">openvpn client</a> in your device, import the ovpn file (in the icon tray) and hit connect.
+ </p>
+ 
+ <h2>Manage OpenVPN</h2>
+ If you have trouble connecting to VPN try to restart the OpenVPN service:
+ 
+ ```
+ $ sudo systemctl restart openvpn@server
+ ```
+ 
+ If you want to stop the service:
+ 
+ ```
+ $ sudo systemctl stop openvpn@server
+ ```
+ 
+ To start the OpenVPN service again:
+ 
+ ```
+ $ sudo systemctl stop openvpn@server
+ ```
+ 
