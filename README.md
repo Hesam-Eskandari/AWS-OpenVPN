@@ -109,6 +109,9 @@ $ sudo bash openvpn-install.sh
  To start the OpenVPN service again:
  
  ```
- $ sudo systemctl stop openvpn@server
+ $ sudo systemctl start openvpn@server
  ```
  
+ <h1>Conference Call And Team Talk</h1>
+There are several reasons to make conference calls in a virtual private network. Assume you work in distance and want to present your work or you are in a gaming group and you need to communicate with your team. I recommend mumble as a conference calling solution. It's free, secure, bug free (if you set it up well) and you can have as many rooms you need (conference rooms, management rooms, cafeteria, etc). You don't need to connect to VPN to setup mumble server, however you should be connected to VPN to connect to mumble rooms.
+
