@@ -97,19 +97,19 @@ $ sudo bash openvpn-install.sh
  If you have trouble connecting to VPN try to restart the OpenVPN service:
  
  ```
- $ sudo systemctl restart openvpn@server
+ $ sudo systemctl restart openvpn-server@server
  ```
  
  If you want to stop the service:
  
  ```
- $ sudo systemctl stop openvpn@server
+ $ sudo systemctl stop openvpn-server@server
  ```
  
  To start the OpenVPN service again:
  
  ```
- $ sudo systemctl start openvpn@server
+ $ sudo systemctl start openvpn-server@server
  ```
  
  <h1>Conference Call And Team Talk</h1>
